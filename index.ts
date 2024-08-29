@@ -108,3 +108,199 @@
 
 // const num1: bigint = 1n;
 
+// const departments: string[] = ["dev", "design", "marketing"];
+// const test: {}[] = [{}, {}, {}];
+// const test2L: number[][][] = [
+//   [[41, 18], [], []],
+//   [[], [13, 54], []],
+// ];
+// const report = departments
+//   .filter((d: string) => d != "dev")
+//   .map((d: string) => `${d} - done`);
+
+// const [first] = report;
+// const [second] = report;
+// console.log(first);
+// console.log(second);
+
+// const electricityUserData = {
+//   readings: 95,
+//   units: "kWt",
+//   mode: "double",
+// };
+
+// const waterUserData = {
+//   readings: 3,
+//   units: "m3",
+// };
+
+// const elRate: number = 0.45;
+// const wRate: number = 2;
+
+// const monthPayments: number[] = [0, 0]; // [electricity, water]
+
+// const calculatePayments = (
+//   elData: { readings: number; mode: string },
+//   wData: { readings: number; units: string },
+//   elRate: number,
+//   wRate: number
+// ) => {
+//   if (elData.mode === "double" && elData.readings < 50) {
+//     monthPayments[0] = elData.readings * elRate * 0.7;
+//   } else {
+//     monthPayments[0] = elData.readings * elRate;
+//   }
+
+//   monthPayments[1] = wData.readings * wRate;
+// };
+
+// calculatePayments(electricityUserData, waterUserData, elRate, wRate);
+
+// const sendInvoice = (
+//   [el, water]: number[],
+//   electricityUserData: { readings: number; units: string; mode: string },
+//   waterUserData: { readings: number; units: string }
+// ): string => {
+//   const text = `    Hello!
+//     This month you used ${electricityUserData.readings} ${electricityUserData.units} of electricity
+//     It will cost: ${el}€
+
+//     This month you used ${waterUserData.readings} ${waterUserData.units} of water
+//     It will cost: ${water}€`;
+
+//   return text.trim();
+// };
+
+// const message: string | number = 5;
+// const messages: string[] | number[] = ["a", "b"];
+
+// // function printMessage (msg: string | number): void{
+// // 	if(typeof(msg) == "string" || typeof(msg) == "boolean"){
+// // 		console.log(msg.toLocaleLowerCase())
+// // 	} else {
+// // 		console.log(msg.toExponential());
+// // 	}
+// // }
+
+// function printMessage(msg: string[] | number | boolean): void {
+//   if (Array.isArray(msg)) {
+//     msg.forEach((m) => console.log(m));
+//   } else if (typeof msg == "number") {
+//     console.log(msg.toFixed());
+//   } else {
+//     console.log(msg);
+//   }
+// }
+// printMessage(4);
+
+// const printReadings = (a: number | string, b: number | boolean) => {
+//   if (a == b) {
+//     console.log(a);
+//   }
+// };
+// const printReadings2 = (a: number[] | string) => {
+//   console.log(a.slice(0, 3));
+// };
+
+// function checkReadings(readings: { system: number } | { user: number }): void {
+//   if ("system" in readings) {
+//     console.log(readings.system);
+//   } else {
+//     console.log(readings.user);
+//   }
+// }
+
+// function logValue(x: string | Date) {
+//   if (x instanceof Date) {
+//     console.log(x.getDate());
+//   } else {
+//     console.log(x.length);
+//   }
+// }
+
+// const port3000: number = 3000;
+// const port3001: number = 3001;
+
+// type AnimationTimingFunc = "ease" | "ease-out" | "ease-in";
+// type AnimationId = string | number;
+
+// function createAnimation(
+//   id: AnimationId,
+//   animationName: string,
+//   timingFunc: AnimationTimingFunc = "ease",
+//   duration: number,
+//   iterationCount: "infinite" | number
+// ): void {
+//   // const elem = document.querySelector(`#${id}`) as HTMLElement;
+//   // if (elem) {
+//   //   elem.style.animation = `${animationName} ${timingFunc} ${duration} ${iterationCount}`;
+//   console.log(`${animationName} ${timingFunc} ${duration} ${iterationCount}`);
+//   // }
+// }
+
+// const count: "infinite" = "infinite";
+
+// createAnimation(13, "animate", "ease-out", 1000, count);
+
+// let salary;
+// salary = "dev";
+// console.log(typeof salary);
+
+// console.log(parseInt(salary));
+
+// type Config = { protocol: "https" | "http"; port: 3001 | 3000 };
+
+interface IConfig {
+  protocol: "https" | "http";
+  port: 3001 | 3000;
+  log: (msg: string) => void;
+}
+// type Role = { role: string };
+// type ConfigWithRole = Config & Role
+
+interface IRole {
+  role: string;
+}
+
+interface IConfigWithRole extends IConfig, IRole {}
+
+const serverConfig: IConfigWithRole = {
+  protocol: "https",
+  port: 3001,
+  role: "admin",
+  log: (msg: string): void => console.log(msg),
+};
+
+// const backupConfig: ConfigWithRole = {
+//   protocol: "http",
+//   port: 3000,
+// 	role: "sysadmin"
+// };
+
+type StartFunc = (
+  protocol: "http" | "https",
+  port: 3000 | 3001,
+  log: (msg: string) => void
+) => string;
+
+const startServer: StartFunc = (protocol, port, log): "Server started" => {
+  if (port) {
+    log(`Server started ${protocol}://server/${port}`);
+  } else {
+    console.log("Invalid port");
+  }
+  return "Server started";
+};
+
+startServer(serverConfig.protocol, serverConfig.port, serverConfig.log);
+
+interface Styles {
+	[key: string]: string;
+}
+
+const styles: Styles = {
+	color: "red",
+	position: "absolute",
+	top: "20px",
+	left: "20px",
+} 

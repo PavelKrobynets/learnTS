@@ -11,6 +11,16 @@ const userData = {
   },
 };
 
+const userDataTuple: [boolean, number, ...string[]] = [
+  true,
+  40,
+  "John",
+  "Alex",
+  "Liza",
+];
+
+const [birthday, age, nameData] = userDataTuple;
+
 const createError = (message: string) => {
   throw new Error(message);
 };
@@ -35,17 +45,43 @@ const logBrtMsg = ({
 
 logBrtMsg(userData);
 
-const departments: string[] = ["dev", "design", "marketing"];
-const test: {}[] = [{}, {}, {}];
-const test2L: number[][][] = [
-  [[41, 18], [], []],
-  [[], [13, 54], []],
-];
-const report = departments
-								.filter((d: string) => d != "dev")
-								.map((d: string) => `${d} - done`)
+interface IConfig {
+  protocol: "https" | "http";
+  port: 3001 | 3000;
+  log: (msg: string) => void;
+}
+// type Role = { role: string };
+// type ConfigWithRole = Config & Role
 
-const [first] = report;
-const [second] = report;
-console.log(first);
-console.log(second);
+interface IRole {
+  role: string;
+}
+
+interface IConfigWithRole extends IConfig, IRole {}
+
+const serverNewConfig: IBasicConfig = {
+  protocol: "https",
+  port: 3001
+};
+
+const backupConfig: IBasicConfig = {
+  protocol: "http",
+  port: 3000,
+};
+
+interface IBasicConfig{
+	protocol: "https" | "http",
+	port: 3000 | 3001
+}
+
+const startNewServer = (config: IBasicConfig): "Server started" => {
+  if (config.port) {
+    console.log(`Server started ${config.protocol}://server/${config.port}`);
+  } else {
+    console.log("Invalid port");
+  }
+  return "Server started";
+};
+
+startNewServer(serverNewConfig);
+startNewServer(backupConfig);
