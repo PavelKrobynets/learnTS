@@ -250,57 +250,76 @@
 
 // type Config = { protocol: "https" | "http"; port: 3001 | 3000 };
 
-interface IConfig {
-  protocol: "https" | "http";
-  port: 3001 | 3000;
-  log: (msg: string) => void;
-}
-// type Role = { role: string };
-// type ConfigWithRole = Config & Role
+// interface IConfig {
+//   protocol: "https" | "http";
+//   port: 3001 | 3000;
+//   log: (msg: string) => void;
+// }
+// // type Role = { role: string };
+// // type ConfigWithRole = Config & Role
 
-interface IRole {
-  role: string;
-}
+// interface IRole {
+//   role: string;
+// }
 
-interface IConfigWithRole extends IConfig, IRole {}
+// interface IConfigWithRole extends IConfig, IRole {}
 
-const serverConfig: IConfigWithRole = {
-  protocol: "https",
-  port: 3001,
-  role: "admin",
-  log: (msg: string): void => console.log(msg),
-};
-
-// const backupConfig: ConfigWithRole = {
-//   protocol: "http",
-//   port: 3000,
-// 	role: "sysadmin"
+// const serverConfig: IConfigWithRole = {
+//   protocol: "https",
+//   port: 3001,
+//   role: "admin",
+//   log: (msg: string): void => console.log(msg),
 // };
 
-type StartFunc = (
-  protocol: "http" | "https",
-  port: 3000 | 3001,
-  log: (msg: string) => void
-) => string;
+// // const backupConfig: ConfigWithRole = {
+// //   protocol: "http",
+// //   port: 3000,
+// // 	role: "sysadmin"
+// // };
 
-const startServer: StartFunc = (protocol, port, log): "Server started" => {
-  if (port) {
-    log(`Server started ${protocol}://server/${port}`);
-  } else {
-    console.log("Invalid port");
-  }
-  return "Server started";
-};
+// type StartFunc = (
+//   protocol: "http" | "https",
+//   port: 3000 | 3001,
+//   log: (msg: string) => void
+// ) => string;
 
-startServer(serverConfig.protocol, serverConfig.port, serverConfig.log);
+// const startServer: StartFunc = (protocol, port, log): "Server started" => {
+//   if (port) {
+//     log(`Server started ${protocol}://server/${port}`);
+//   } else {
+//     console.log("Invalid port");
+//   }
+//   return "Server started";
+// };
 
-interface Styles {
-	[key: string]: string;
+// startServer(serverConfig.protocol, serverConfig.port, serverConfig.log);
+
+// interface Styles {
+// 	[key: string]: string;
+// }
+
+// const styles: Styles = {
+// 	color: "red",
+// 	position: "absolute",
+// 	top: "20px",
+// 	left: "20px",
+// }
+
+interface UserData2 {
+	isBirthdayData: boolean,
+	ageData: number,
+	userNameData: string
 }
 
-const styles: Styles = {
-	color: "red",
-	position: "absolute",
-	top: "20px",
-	left: "20px",
-} 
+const userData2 =
+  '{"isBirthdayData": true, "ageData": 40, "userNameData": "John"}';
+
+	const userObj:UserData2 = JSON.parse(userData2)
+	console.log(userObj);
+
+	let isOkay = true,
+	movement: string | boolean = false;
+
+	if (isOkay) {
+		movement = "moving"
+	}
