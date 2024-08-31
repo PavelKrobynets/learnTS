@@ -305,21 +305,60 @@
 // 	left: "20px",
 // }
 
-interface UserData2 {
-	isBirthdayData: boolean,
-	ageData: number,
-	userNameData: string
+// interface UserData2 {
+// 	isBirthdayData: boolean,
+// 	ageData: number,
+// 	userNameData: string
+// }
+
+// const userData2 =
+//   '{"isBirthdayData": true, "ageData": 40, "userNameData": "John"}';
+
+// 	const userObj:UserData2 = JSON.parse(userData2)
+// 	console.log(userObj);
+
+// 	let isOkay = true,
+// 	movement: string | boolean = false;
+
+// 	if (isOkay) {
+// 		movement = "moving"
+// 	}
+
+interface User {
+	readonly login: string;
+	password: string;
+	age: number;
+	addr?: string;
+	parents?: {
+		father?: string;
+		mother?: string;
+	}
 }
 
-const userData2 =
-  '{"isBirthdayData": true, "ageData": 40, "userNameData": "John"}';
+const user: User = {
+	login: "Alex",
+	password: "123",
+	age: 25,
+}
 
-	const userObj:UserData2 = JSON.parse(userData2)
-	console.log(userObj);
+const userFreeze: Readonly<User> = {
+	login: "Alex",
+	password: "123",
+	age: 25,
+}
 
-	let isOkay = true,
-	movement: string | boolean = false;
+const dbName = "12345"
 
-	if (isOkay) {
-		movement = "moving"
-	}
+function sendUserData(obj: User, bd?: string): void{
+console.log(bd?.toLocaleLowerCase());
+console.log(obj.parents?.father?.toLocaleLowerCase());
+}
+
+// class Animal {
+// 	readonly name : string = "name"
+// }
+
+// const basicPorts: readonly number[] = [3000, 3001, 3002];
+
+const basicPorts: readonly [number, ...string[]] = [3000, "3001", "3002"];
+const basicPortss: ReadonlyArray<number> = [3000, 3001, 3002];
