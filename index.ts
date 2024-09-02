@@ -324,41 +324,135 @@
 // 		movement = "moving"
 // 	}
 
-interface User {
-	readonly login: string;
-	password: string;
-	age: number;
-	addr?: string;
-	parents?: {
-		father?: string;
-		mother?: string;
-	}
-}
-
-const user: User = {
-	login: "Alex",
-	password: "123",
-	age: 25,
-}
-
-const userFreeze: Readonly<User> = {
-	login: "Alex",
-	password: "123",
-	age: 25,
-}
-
-const dbName = "12345"
-
-function sendUserData(obj: User, bd?: string): void{
-console.log(bd?.toLocaleLowerCase());
-console.log(obj.parents?.father?.toLocaleLowerCase());
-}
-
-// class Animal {
-// 	readonly name : string = "name"
+// interface User {
+// 	readonly login: string;
+// 	password: string;
+// 	age: number;
+// 	addr?: string;
+// 	parents?: {
+// 		father?: string;
+// 		mother?: string;
+// 	}
 // }
 
-// const basicPorts: readonly number[] = [3000, 3001, 3002];
+// const user: User = {
+// 	login: "Alex",
+// 	password: "123",
+// 	age: 25,
+// }
 
-const basicPorts: readonly [number, ...string[]] = [3000, "3001", "3002"];
-const basicPortss: ReadonlyArray<number> = [3000, 3001, 3002];
+// const userFreeze: Readonly<User> = {
+// 	login: "Alex",
+// 	password: "123",
+// 	age: 25,
+// }
+
+// const dbName = "12345"
+
+// function sendUserData(obj: User, bd?: string): void{
+// console.log(bd?.toLocaleLowerCase());
+// console.log(obj.parents?.father?.toLocaleLowerCase());
+// }
+
+// // class Animal {
+// // 	readonly name : string = "name"
+// // }
+
+// // const basicPorts: readonly number[] = [3000, 3001, 3002];
+
+// const basicPorts: readonly [number, ...string[]] = [3000, "3001", "3002"];
+// const basicPortss: ReadonlyArray<number> = [3000, 3001, 3002];
+
+// enum Directions {
+//   TOP,
+//   RIGHT,
+//   LEFT,
+//   BOTTOM,
+// }
+
+// enum TimingFunction {
+//   EASE,
+//   EASE_IN,
+//   LINEAR,
+// }
+// function frame(elem: string, dir: Directions, tFunc: TimingFunction): void {
+//   if (dir === Directions.RIGHT) {
+//     console.log("right");
+//   }
+//   console.log("end");
+// }
+
+// frame("id", Directions.RIGHT, TimingFunction.EASE_IN);
+
+// let smth: unknown;
+// smth = "str";
+
+// let data: string[] = smth;
+
+// data.push("smth2")
+
+// const someValue: unknown = 10;
+// // someValue.method();
+
+// function fetchData(data: unknown): void {
+//   if (typeof data == "string") {
+//     console.log(data.toLowerCase());
+//   }
+// }
+
+// const userData: string =
+//   '{"isBirthdayData": true, "ageData": 40, "userNameData": "John"}';
+
+// function saveParse(s: string): unknown {
+//   return JSON.parse(s);
+// }
+
+// const data = saveParse(userData);
+
+// function transferData(d: unknown): void{
+// 	if (typeof d == "string") {
+// 		console.log(d.toUpperCase());
+// 	} else if(typeof d == "object" && d){
+// 		console.log(d);
+// 	} else {
+// 		console.log("no data");
+// 	}
+// }
+
+// transferData(data);
+
+// try {
+// 	if (1) {
+// 		throw new Error("Error")
+// 	}
+// }catch(e){
+// 	if (e instanceof Error) {
+// 		console.log(e.message);
+// 	} else if (e == 'string'){
+// 		console.log(e);
+// 	}
+// }
+
+// type T0 = any | unknown;
+// type T1 = number | unknown;	
+// type T2 = string & unknown;
+
+// const dataFromControl = {
+// 	water: 200,
+// 	el: 350
+// }
+
+// function checkReadings(data: typeof dataFromControl): boolean {
+// 	const dataFromUser = {
+// 		water: 200,
+// 		el: 350
+// 	}
+// 	if (data.el == dataFromUser.el && data.water == dataFromUser.water) {
+// 		return true
+// 	} else {
+// 		return false
+// 	}
+// }
+
+// const PI = 3.14;
+// let PIClone: typeof PI;
