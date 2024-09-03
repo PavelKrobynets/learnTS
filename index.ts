@@ -434,7 +434,7 @@
 // }
 
 // type T0 = any | unknown;
-// type T1 = number | unknown;	
+// type T1 = number | unknown;
 // type T2 = string & unknown;
 
 // const dataFromControl = {
@@ -456,3 +456,34 @@
 
 // const PI = 3.14;
 // let PIClone: typeof PI;
+
+const fetchData = (url: string, method: "GET" | "POST"): void => {
+  console.log("fetched");
+};
+
+const requestOptions = {
+  url: "https//someurl.com",
+  method: "GET",
+};
+
+const str = "str";
+const method = "GET";
+
+// fetchData(requestOptions.url, requestOptions.method as "GET")
+fetchData(requestOptions.url, <"GET">requestOptions.method);
+
+const box = document.querySelector(".box") as HTMLElement;
+const input = <HTMLInputElement>document.querySelector("input");
+
+const someNumber: number = input.value as any as number;
+console.log(someNumber);
+
+let a = "value" as const;
+let b = { f: 100 } as const;
+let c = [] as const;
+
+let value = "value";
+let arr = ["sd", "dff"];
+let obj = { f: 100 };
+
+let T5 = Math.round(Math.random() * 1) ? "yes" : "no";
