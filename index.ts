@@ -577,32 +577,109 @@
 // 	}
 // }
 
-interface Square {
-  side: number;
-  area: number;
-}
+// interface Square {
+//   side: number;
+//   area: number;
+// }
 
-interface Rectangle {
-  a: number;
-  b: number;
-  area: number;
-}
+// interface Rectangle {
+//   a: number;
+//   b: number;
+//   area: number;
+// }
 
-function calculateArea(side: number): Square;
-function calculateArea(a: number, b: number): Rectangle;
-function calculateArea(a: number, b?: number): Square | Rectangle {
-  if (b) {
-    const rect: Rectangle = {
-      a,
-      b,
-      area: a * b,
-    };
-    return rect;
-  } else {
-    const square: Square = {
-      side: a,
-      area: a * a,
-    };
-    return square;
-  }
-}
+// function calculateArea(side: number): Square;
+// function calculateArea(a: number, b: number): Rectangle;
+// function calculateArea(a: number, b?: number): Square | Rectangle {
+//   if (b) {
+//     const rect: Rectangle = {
+//       a,
+//       b,
+//       area: a * b,
+//     };
+//     return rect;
+//   } else {
+//     const square: Square = {
+//       side: a,
+//       area: a * a,
+//     };
+//     return square;
+//   }
+// }
+
+// interface Car {
+// 	name: 'car',
+//   engine: string;
+//   wheels: number;
+// }
+
+// interface Ship {
+// 	name: "ship",
+//   engine: string;
+//   sale: string;
+// }
+// interface Airplane {
+// 	name: "airplane"
+// 	engine: string,
+// 	wings: string
+// }
+
+// interface SuperAirplane {
+// 	name: "smth",
+// 	engine: string,
+// 	wings: string,
+// }
+
+// interface ComplexVehicle {
+// 	name: 'car' | "ship" | "airplane" | "smth",
+// 	engine: string;
+// 	wheels?: number;
+// 	sale?: string;
+// 	wings?: string;
+// }
+
+// type Vehicle = Car | Ship | Airplane | SuperAirplane
+
+// function isCar(car: Vehicle): car is Car {
+//   return "wheels" in car;
+// }
+
+// function isShip(ship: Vehicle): ship is Ship {
+//   return "sale" in ship;
+// }
+
+// const car: ComplexVehicle = {
+// 	name: "car",
+// 	engine: "engine",
+// }
+
+// function repairVehicle(vehicle: ComplexVehicle) {
+//   // if (isCar(vehicle)) {
+//   //   console.log(vehicle.wheels);
+//   // } else if (isShip(vehicle)) {
+//   //   console.log(vehicle.sale);
+//   // } else {
+//   //   vehicle.wings
+//   // }
+
+// 	switch (vehicle.name) {
+// 		case "car":
+// 			console.log(vehicle.wheels! * 2);
+// 			break;
+// 		case "ship":
+// 			console.log(vehicle.sale);
+// 			break;
+// 		case "airplane":
+// 			console.log(vehicle.wings);
+// 			break;
+// 			case "smth":
+// 				console.log(vehicle.wings);
+// 				break;
+// 		default:
+// 			// const smth: never = vehicle
+// 			console.log("ouuups");
+// 			break;
+// 	}
+// }
+
+// repairVehicle(car)
