@@ -457,33 +457,152 @@
 // const PI = 3.14;
 // let PIClone: typeof PI;
 
-const fetchData = (url: string, method: "GET" | "POST"): void => {
-  console.log("fetched");
-};
+// const fetchData = (url: string, method: "GET" | "POST"): void => {
+//   console.log("fetched");
+// };
 
-const requestOptions = {
-  url: "https//someurl.com",
-  method: "GET",
-};
+// const requestOptions = {
+//   url: "https//someurl.com",
+//   method: "GET",
+// };
 
-const str = "str";
-const method = "GET";
+// const str = "str";
+// const method = "GET";
 
-// fetchData(requestOptions.url, requestOptions.method as "GET")
-fetchData(requestOptions.url, <"GET">requestOptions.method);
+// // fetchData(requestOptions.url, requestOptions.method as "GET")
+// fetchData(requestOptions.url, <"GET">requestOptions.method);
 
-const box = document.querySelector(".box") as HTMLElement;
-const input = <HTMLInputElement>document.querySelector("input");
+// const box = document.querySelector(".box") as HTMLElement;
+// const input = <HTMLInputElement>document.querySelector("input");
 
-const someNumber: number = input.value as any as number;
-console.log(someNumber);
+// const someNumber: number = input.value as any as number;
+// console.log(someNumber);
 
-let a = "value" as const;
-let b = { f: 100 } as const;
-let c = [] as const;
+// let a = "value" as const;
+// let b = { f: 100 } as const;
+// let c = [] as const;
 
-let value = "value";
-let arr = ["sd", "dff"];
-let obj = { f: 100 };
+// let value = "value";
+// let arr = ["sd", "dff"];
+// let obj = { f: 100 };
 
-let T5 = Math.round(Math.random() * 1) ? "yes" : "no";
+// let T5 = Math.round(Math.random() * 1) ? "yes" : "no";
+
+// const num = new Number(5)
+// const num2 = 5;
+
+// type MsgType = string[] | number | boolean;
+
+// function printMsg(msg: MsgType): void {
+//   if (Array.isArray(msg)) {
+//     msg.forEach((m) => console.log(m));
+//   } else if (isNumber(msg)) {
+//     console.log(msg);
+//   } else {
+//     console.log(msg);
+//   }
+// }
+
+// printMsg(4);
+
+// // const box = document.querySelector('.box')
+// // box?.addEventListener('click', () => {})
+
+// // function isNumber(n: MsgType): n is number{
+// // 	return typeof n == "number"
+// // }
+// function isNumber(n: unknown): n is number {
+//   return typeof n == "number";
+// }
+
+// interface Car {
+// 	name: 'car',
+//   engine: string;
+//   wheels: number;
+// }
+
+// interface Ship {
+// 	name: "ship",
+//   engine: string;
+//   sale: string;
+// }
+// interface Airplane {
+// 	name: "airplane"
+// 	engine: string,
+// 	wings: string
+// }
+
+// interface SuperAirplane {
+// 	name: "smth",
+// 	engine: string,
+// 	wings: string,
+// }
+
+// type Vehicle = Car | Ship | Airplane | SuperAirplane
+
+// function isCar(car: Vehicle): car is Car {
+//   return "wheels" in car;
+// }
+
+// function isShip(ship: Vehicle): ship is Ship {
+//   return "sale" in ship;
+// }
+
+// function repairVehicle(vehicle: Vehicle) {
+//   // if (isCar(vehicle)) {
+//   //   console.log(vehicle.wheels);
+//   // } else if (isShip(vehicle)) {
+//   //   console.log(vehicle.sale);
+//   // } else {
+//   //   vehicle.wings
+//   // }
+
+// 	switch (vehicle.name) {
+// 		case "car":
+// 			console.log(vehicle.wheels);
+// 			break;
+// 		case "ship":
+// 			console.log(vehicle.sale);
+// 			break;
+// 		case "airplane":
+// 			console.log(vehicle.wings);
+// 			break;
+// 			case "smth":
+// 				console.log(vehicle.wings);
+// 				break;
+// 		default:
+// 			const smth: never = vehicle
+// 			console.log("ouuups");
+// 			break;
+// 	}
+// }
+
+interface Square {
+  side: number;
+  area: number;
+}
+
+interface Rectangle {
+  a: number;
+  b: number;
+  area: number;
+}
+
+function calculateArea(side: number): Square;
+function calculateArea(a: number, b: number): Rectangle;
+function calculateArea(a: number, b?: number): Square | Rectangle {
+  if (b) {
+    const rect: Rectangle = {
+      a,
+      b,
+      area: a * b,
+    };
+    return rect;
+  } else {
+    const square: Square = {
+      side: a,
+      area: a * a,
+    };
+    return square;
+  }
+}
