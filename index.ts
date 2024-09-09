@@ -683,3 +683,42 @@
 // }
 
 // repairVehicle(car)
+
+
+// const box = document.querySelector(".box") as HTMLElement;
+// const input = document.querySelector("input")
+// const link = document.querySelector("a")
+// const p = document.querySelector(".p") as HTMLParagraphElement
+// const links = document.querySelectorAll('a')
+
+// if (link) {
+// 	link.href = "google.com"
+// }
+// input?.value
+
+
+// link?.addEventListener('click', (e) => {
+// 	e.preventDefault()
+// })
+
+
+type voidFunc = () => void;
+
+const retString: voidFunc = () => {
+	return "string"
+}
+
+const s = retString();
+
+const retNum = () => {
+	return 5;
+}
+
+const n = retNum()
+
+const names = ["Anna", "Marry"];
+const newArr = names.slice()
+
+names.forEach((name, i, arr) => {
+	arr.push('Hey!')
+})

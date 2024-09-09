@@ -264,54 +264,119 @@
 
 //-----------------------------------------------------------------------
 
+// type Animal = "cat" | "dog" | "bird";
 
-type Animal = "cat" | "dog" | "bird";
+// enum Status {
+//   Available = "available",
+//   NotAvailable = "not available",
+// }
 
-enum Status {
-  Available = "available",
-  NotAvailable = "not available",
+// interface Request {
+//   animal: Animal;
+//   breed: string;
+//   sterilized?: string;
+// }
+
+// interface AnimalAvailableData extends Request {
+//   location: string;
+//   age?: number;
+// }
+
+// interface AnimaNotAvailableData {
+//   message: string;
+//   nextUpdateIn: Date;
+// }
+
+// interface AnimalAvailableResponse {
+// 	status: Status.Available,
+// 	data: AnimalAvailableData;
+// }
+
+// interface AnimalNotAvailableResponse {
+// 	status: Status.NotAvailable,
+// 	data: AnimaNotAvailableData;
+// }
+
+// type AnimalResponse = AnimalAvailableResponse | AnimalNotAvailableResponse;
+
+// function isAvailable(res: AnimalResponse): res is AnimalAvailableResponse {
+// 	if (res.status === "available") {
+// 		return true
+// 	} else {
+// 		return false
+// 	}
+// }
+
+// function checkAnimalData(animal: AnimalResponse): AnimalAvailableData | string {
+//   if (isAvailable(animal)) {
+//     return animal.data
+//   } else {
+//     return `${animal.data.message}, you can try in ${animal.data.nextUpdateIn}`;
+//   }
+// }
+
+//-----------------------------------------------------------------------------
+
+interface IFormData {
+  email: string;
+  title: string;
+  text: string;
+  checkbox: boolean;
 }
 
-interface Request {
-  animal: Animal;
-  breed: string;
-  sterilized?: string;
+const formData: IFormData = {
+  email: "",
+  title: "",
+  text: "",
+  checkbox: false,
+};
+
+const email = document.querySelector("#email") as HTMLInputElement,
+  checkbox = document.querySelector("#checkbox") as HTMLInputElement,
+  title = document.querySelector("#title") as HTMLInputElement,
+  text = document.querySelector("#text") as HTMLTextAreaElement;
+
+// Последовательность действий:
+// 1) Происходит submit любой из форм
+// 2) Все данные из 4х полей со страницы переходят в свойства объекта formData
+// 3) Запускается функция validateFormData с этим объектом, возвращает true/false
+// 4) Если на предыдущем этапе true, то запускается функция checkFormData с этим объектом
+
+function onSubmitForm(
+  email: string,
+  title: string,
+  text: string,
+  checkbox: boolean
+): void {
+	formData.email = email;
+	formData.title = title;
+	formData.text = text;
+	formData.checkbox = checkbox;
+
+	validateFormData(formData);
 }
 
-interface AnimalAvailableData extends Request {
-  location: string;
-  age?: number;
-}
-
-interface AnimaNotAvailableData {
-  message: string;
-  nextUpdateIn: Date;
-}
-
-interface AnimalAvailableResponse {
-	status: Status.Available,
-	data: AnimalAvailableData;
-}
-
-interface AnimalNotAvailableResponse {
-	status: Status.NotAvailable,
-	data: AnimaNotAvailableData;
-}
-
-type AnimalResponse = AnimalAvailableResponse | AnimalNotAvailableResponse;
-
-function isAvailable(res: AnimalResponse): res is AnimalAvailableResponse {
-	if (res.status === "available") {
-		return true
-	} else {
-		return false
-	}
-}
-
-function checkAnimalData(animal: AnimalResponse): AnimalAvailableData | string {
-  if (isAvailable(animal)) {
-    return animal.data
+function validateFormData(data: IFormData): boolean {
+  // Если каждое из свойств объекта data правдиво...
+  if (Object.values(data).every(Boolean)) {
+		checkFormData(formData)
+    return true;
   } else {
-    return `${animal.data.message}, you can try in ${animal.data.nextUpdateIn}`;
+    console.log("Please, complete all fields");
+    return false;
   }
 }
+
+function checkFormData(data: IFormData) {
+  const { email } = data;
+  const emails = ["example@gmail.com", "example@ex.com", "admin@gmail.com"];
+
+  // Если email совпадает хотя бы с одним из массива
+  if (emails.includes(email)) {
+    console.log("This email is already exist");
+  } else {
+    console.log("Posting data...");
+  }
+}
+
+onSubmitForm(email.value,  title.value, text.value, checkbox.checked);
