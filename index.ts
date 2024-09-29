@@ -684,7 +684,6 @@
 
 // repairVehicle(car)
 
-
 // const box = document.querySelector(".box") as HTMLElement;
 // const input = document.querySelector("input")
 // const link = document.querySelector("a")
@@ -696,29 +695,89 @@
 // }
 // input?.value
 
-
 // link?.addEventListener('click', (e) => {
 // 	e.preventDefault()
 // })
 
+// type voidFunc = () => void;
 
-type voidFunc = () => void;
+// const retString: voidFunc = () => {
+// 	return "string"
+// }
 
-const retString: voidFunc = () => {
-	return "string"
+// const s = retString();
+
+// const retNum = () => {
+// 	return 5;
+// }
+
+// const n = retNum()
+
+// const names = ["Anna", "Marry"];
+// const newArr = names.slice()
+
+// names.forEach((name, i, arr) => {
+// 	arr.push('Hey!')
+// })
+
+function processingData<T, S>(data: T[], options: S): string {
+  switch (typeof data) {
+    case "string":
+      return `${data}, speed ${options}`;
+      break;
+    case "number":
+      return `${data}, speed ${options}`;
+    default:
+      return "Not valid";
+  }
 }
 
-const s = retString();
+let res1 = processingData([1], "some text");
+let res2 = processingData(["1"], "2");
+const res3 = processingData<number, number>([13], 22);
 
-const retNum = () => {
-	return 5;
+interface PrintUK {
+  design: number;
+}
+interface PrintES {
+  design: string;
+}
+interface Print<T> {
+  design: T;
 }
 
-const n = retNum()
+const somePrint: Print<string> = {
+  design: "some string",
+};
+const someOtherPrint: Print<number> = {
+  design: 26,
+};
 
-const names = ["Anna", "Marry"];
-const newArr = names.slice()
+function processing<T>(data: T): T {
+  return data;
+}
 
-names.forEach((name, i, arr) => {
-	arr.push('Hey!')
-})
+interface ProcessingFn {
+	<T>(data: T): T
+}
+
+// let newFunc: <T>(data: T) => T = processing; 
+let newFunc: ProcessingFn = processing; 
+
+interface DataSaver {
+  // processing: <T>(data: T) => T;
+	// processing: typeof processing
+	processing: ProcessingFn
+}
+
+const saver: DataSaver = {
+  // processing(data) {
+  // 	console.log(data);
+  // 	return data;
+  // },
+  // processing: <T>(data: T) => {
+  // 	console.log(data);
+  // 	return data;
+  // }
+  processing: processing,
+};
