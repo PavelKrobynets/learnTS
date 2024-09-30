@@ -1,45 +1,83 @@
 // const isBirthdayData: boolean = true;
 // let ageData: number = 40;
 // const userNameData: string = "Alex";
-var formData = {
-    email: "",
-    title: "",
-    text: "",
-    checkbox: false,
+var player1 = {
+    game: "CS GO",
+    hours: 300,
+    server: "basic",
 };
-var email = document.querySelector("#email"), checkbox = document.querySelector("#checkbox"), title = document.querySelector("#title"), text = document.querySelector("#text");
-// Последовательность действий:
-// 1) Происходит submit любой из форм
-// 2) Все данные из 4х полей со страницы переходят в свойства объекта formData
-// 3) Запускается функция validateFormData с этим объектом, возвращает true/false
-// 4) Если на предыдущем этапе true, то запускается функция checkFormData с этим объектом
-function onSubmitForm(email, title, text, checkbox) {
-    formData.email = email;
-    formData.title = title;
-    formData.text = text;
-    formData.checkbox = checkbox;
-    validateFormData(formData);
+var player2 = {
+    game: 2048,
+    hours: "300 h.",
+    server: "arcade",
+};
+var player3 = {
+    game: "Chess",
+    hours: {
+        total: 500,
+        inMenu: 50,
+    },
+    server: "chess",
+};
+function calculateAmountOfFigures(figure) {
+    var result = {
+        squares: 0,
+        circles: 0,
+        triangles: 0,
+        others: 0,
+    };
+    figure.forEach(function (item) {
+        switch (item.name) {
+            case "rect":
+                result.squares++;
+                break;
+            case "triangle":
+                result.triangles++;
+                break;
+            case "line":
+                result.others++;
+                break;
+            case "circle":
+                result.circles++;
+                break;
+            default:
+                break;
+        }
+    });
+    return result;
 }
-function validateFormData(data) {
-    // Если каждое из свойств объекта data правдиво...
-    if (Object.values(data).every(Boolean)) {
-        checkFormData(formData);
-        return true;
-    }
-    else {
-        console.log("Please, complete all fields");
-        return false;
-    }
-}
-function checkFormData(data) {
-    var email = data.email;
-    var emails = ["example@gmail.com", "example@ex.com", "admin@gmail.com"];
-    // Если email совпадает хотя бы с одним из массива
-    if (emails.includes(email)) {
-        console.log("This email is already exist");
-    }
-    else {
-        console.log("Posting data...");
-    }
-}
-onSubmitForm(email.value, title.value, text.value, checkbox.checked);
+var data = [
+    {
+        name: "rect",
+        data: { a: 5, b: 10 },
+    },
+    {
+        name: "rect",
+        data: { a: 6, b: 11 },
+    },
+    {
+        name: "triangle",
+        data: { a: 5, b: 10, c: 14 },
+    },
+    {
+        name: "line",
+        data: { l: 15 },
+    },
+    {
+        name: "circle",
+        data: { r: 10 },
+    },
+    {
+        name: "circle",
+        data: { r: 5 },
+    },
+    {
+        name: "rect",
+        data: { a: 15, b: 7 },
+    },
+    {
+        name: "triangle",
+    },
+];
+console.log(calculateAmountOfFigures(data));
+console.log("AAAASASDASDASDAS");

@@ -317,66 +317,176 @@
 
 //-----------------------------------------------------------------------------
 
-interface IFormData {
-  email: string;
-  title: string;
-  text: string;
-  checkbox: boolean;
+// interface IFormData {
+//   email: string;
+//   title: string;
+//   text: string;
+//   checkbox: boolean;
+// }
+
+// const formData: IFormData = {
+//   email: "",
+//   title: "",
+//   text: "",
+//   checkbox: false,
+// };
+
+// const email = document.querySelector("#email") as HTMLInputElement,
+//   checkbox = document.querySelector("#checkbox") as HTMLInputElement,
+//   title = document.querySelector("#title") as HTMLInputElement,
+//   text = document.querySelector("#text") as HTMLTextAreaElement;
+
+// // Последовательность действий:
+// // 1) Происходит submit любой из форм
+// // 2) Все данные из 4х полей со страницы переходят в свойства объекта formData
+// // 3) Запускается функция validateFormData с этим объектом, возвращает true/false
+// // 4) Если на предыдущем этапе true, то запускается функция checkFormData с этим объектом
+
+// function onSubmitForm(
+//   email: string,
+//   title: string,
+//   text: string,
+//   checkbox: boolean
+// ): void {
+// 	formData.email = email;
+// 	formData.title = title;
+// 	formData.text = text;
+// 	formData.checkbox = checkbox;
+
+// 	validateFormData(formData);
+// }
+
+// function validateFormData(data: IFormData): boolean {
+//   // Если каждое из свойств объекта data правдиво...
+//   if (Object.values(data).every(Boolean)) {
+// 		checkFormData(formData)
+//     return true;
+//   } else {
+//     console.log("Please, complete all fields");
+//     return false;
+//   }
+// }
+
+// function checkFormData(data: IFormData) {
+//   const { email } = data;
+//   const emails = ["example@gmail.com", "example@ex.com", "admin@gmail.com"];
+
+//   // Если email совпадает хотя бы с одним из массива
+//   if (emails.includes(email)) {
+//     console.log("This email is already exist");
+//   } else {
+//     console.log("Posting data...");
+//   }
+// }
+
+// onSubmitForm(email.value,  title.value, text.value, checkbox.checked);
+
+interface PlayerData<Game, Hours> {
+  game: Game;
+  hours: Hours;
+  server: string;
 }
 
-const formData: IFormData = {
-  email: "",
-  title: "",
-  text: "",
-  checkbox: false,
+const player1: PlayerData<string, number> = {
+  game: "CS GO",
+  hours: 300,
+  server: "basic",
+};
+const player2: PlayerData<number, string> = {
+  game: 2048,
+  hours: "300 h.",
+  server: "arcade",
+};
+const player3: PlayerData<string, object> = {
+  game: "Chess",
+  hours: {
+    total: 500,
+    inMenu: 50,
+  },
+  server: "chess",
 };
 
-const email = document.querySelector("#email") as HTMLInputElement,
-  checkbox = document.querySelector("#checkbox") as HTMLInputElement,
-  title = document.querySelector("#title") as HTMLInputElement,
-  text = document.querySelector("#text") as HTMLTextAreaElement;
+// Массив данных с фигурами содержит объекты, у каждого из которых обязательно есть свойство name
+// Каждый объект может еще содержать дополнительные свойства в случайном виде
+// Свойство name может иметь только 4 варианта
+// Функция calculateAmountOfFigures должна принимать массив с объектами, у которых обязательно должно быть свойство name
+// Возвращает она объект-экземпляр AmountOfFigures
+// Внутри себя подсчитывает сколько каких фигур было в массиве и записывает результаты в AmountOfFigures
+// С текущими данными в консоль должно попадать:
+// { squares: 3, circles: 2, triangles: 2, others: 1 }
 
-// Последовательность действий:
-// 1) Происходит submit любой из форм
-// 2) Все данные из 4х полей со страницы переходят в свойства объекта formData
-// 3) Запускается функция validateFormData с этим объектом, возвращает true/false
-// 4) Если на предыдущем этапе true, то запускается функция checkFormData с этим объектом
+interface AmountOfFigures {
+  squares: number;
+  circles: number;
+  triangles: number;
+  others: number;
+}
+type FigureName = "rect" | "triangle" | "line" | "circle";
 
-function onSubmitForm(
-  email: string,
-  title: string,
-  text: string,
-  checkbox: boolean
-): void {
-	formData.email = email;
-	formData.title = title;
-	formData.text = text;
-	formData.checkbox = checkbox;
-
-	validateFormData(formData);
+interface Figure {
+  name: string,
 }
 
-function validateFormData(data: IFormData): boolean {
-  // Если каждое из свойств объекта data правдиво...
-  if (Object.values(data).every(Boolean)) {
-		checkFormData(formData)
-    return true;
-  } else {
-    console.log("Please, complete all fields");
-    return false;
-  }
+function calculateAmountOfFigures<T extends Figure>(figure: T[]): AmountOfFigures {
+  const result: AmountOfFigures = {
+    squares: 0,
+    circles: 0,
+    triangles: 0,
+    others: 0,
+  };
+  figure.forEach((item) => {
+    switch (item.name) {
+      case "rect":
+        result.squares++;
+        break;
+      case "triangle":
+        result.triangles++;
+        break;
+      case "line":
+        result.others++;
+        break;
+      case "circle":
+        result.circles++;
+        break;
+			default:
+				break;
+    }
+  });
+	return result;
 }
 
-function checkFormData(data: IFormData) {
-  const { email } = data;
-  const emails = ["example@gmail.com", "example@ex.com", "admin@gmail.com"];
+const data = [
+  {
+    name: "rect",
+    data: { a: 5, b: 10 },
+  },
+  {
+    name: "rect",
+    data: { a: 6, b: 11 },
+  },
+  {
+    name: "triangle",
+    data: { a: 5, b: 10, c: 14 },
+  },
+  {
+    name: "line",
+    data: { l: 15 },
+  },
+  {
+    name: "circle",
+    data: { r: 10 },
+  },
+  {
+    name: "circle",
+    data: { r: 5 },
+  },
+  {
+    name: "rect",
+    data: { a: 15, b: 7 },
+  },
+  {
+    name: "triangle",
+  },
+];
 
-  // Если email совпадает хотя бы с одним из массива
-  if (emails.includes(email)) {
-    console.log("This email is already exist");
-  } else {
-    console.log("Posting data...");
-  }
-}
-
-onSubmitForm(email.value,  title.value, text.value, checkbox.checked);
+console.log(calculateAmountOfFigures(data));

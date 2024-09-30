@@ -817,7 +817,7 @@ const user: User<{mother: string, father: string, married: boolean, smth: number
 type OrNull<Type> = Type | null;
 type OneOrMany<Type> = Type | Type[];
 
-const data: OneOrMany<number[]> = [5];
+
 
 const depositMoney = <T extends number | string>(amount: T): T => {
 	console.log(`req to server with amount: ${amount}`);
