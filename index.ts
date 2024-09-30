@@ -720,64 +720,109 @@
 // 	arr.push('Hey!')
 // })
 
-function processingData<T, S>(data: T[], options: S): string {
-  switch (typeof data) {
-    case "string":
-      return `${data}, speed ${options}`;
-      break;
-    case "number":
-      return `${data}, speed ${options}`;
-    default:
-      return "Not valid";
-  }
-}
+// function processingData<T, S>(data: T[], options: S): string {
+//   switch (typeof data) {
+//     case "string":
+//       return `${data}, speed ${options}`;
+//       break;
+//     case "number":
+//       return `${data}, speed ${options}`;
+//     default:
+//       return "Not valid";
+//   }
+// }
 
-let res1 = processingData([1], "some text");
-let res2 = processingData(["1"], "2");
-const res3 = processingData<number, number>([13], 22);
+// let res1 = processingData([1], "some text");
+// let res2 = processingData(["1"], "2");
+// const res3 = processingData<number, number>([13], 22);
 
-interface PrintUK {
-  design: number;
-}
-interface PrintES {
-  design: string;
-}
-interface Print<T> {
-  design: T;
-}
+// interface PrintUK {
+//   design: number;
+// }
+// interface PrintES {
+//   design: string;
+// }
+// interface Print<T> {
+//   design: T;
+// }
 
-const somePrint: Print<string> = {
-  design: "some string",
-};
-const someOtherPrint: Print<number> = {
-  design: 26,
-};
+// const somePrint: Print<string> = {
+//   design: "some string",
+// };
+// const someOtherPrint: Print<number> = {
+//   design: 26,
+// };
+
+// function processing<T>(data: T): T {
+//   return data;
+// }
+
+// interface ProcessingFn {
+// 	<T>(data: T): T
+// }
+
+// // let newFunc: <T>(data: T) => T = processing;
+// let newFunc: ProcessingFn = processing;
+
+// interface DataSaver {
+//   // processing: <T>(data: T) => T;
+// 	// processing: typeof processing
+// 	processing: ProcessingFn
+// }
+
+// const saver: DataSaver = {
+//   // processing(data) {
+//   // 	console.log(data);
+//   // 	return data;
+//   // },
+//   // processing: <T>(data: T) => {
+//   // 	console.log(data);
+//   // 	return data;
+//   // }
+//   processing: processing,
+// };
+
+interface ProcessingFn {
+  <T>(data: T): T;
+}
 
 function processing<T>(data: T): T {
   return data;
 }
 
-interface ProcessingFn {
-	<T>(data: T): T
+let newFunc: ProcessingFn = processing;
+
+type Smth<T> = T;
+
+const num: Smth<number> = 5;
+
+interface ParentsOfUser {
+	mother: string,
+	father: string
 }
 
-// let newFunc: <T>(data: T) => T = processing; 
-let newFunc: ProcessingFn = processing; 
-
-interface DataSaver {
-  // processing: <T>(data: T) => T;
-	// processing: typeof processing
-	processing: ProcessingFn
+interface User<ParentsData extends ParentsOfUser>{
+  login: string;
+  age: number;
+  parents: ParentsData;
 }
 
-const saver: DataSaver = {
-  // processing(data) {
-  // 	console.log(data);
-  // 	return data;
-  // },
-  // processing: <T>(data: T) => {
-  // 	console.log(data);
-  // 	return data;
-  // }
-  processing: processing,
+const user: User<{mother: string, father: string, married: boolean, smth: number}> = {
+  login: "str",
+  age: 25,
+  parents: { mother: "Anna", father: "No data", married: true, smth: 16 }
 };
+
+
+type OrNull<Type> = Type | null;
+type OneOrMany<Type> = Type | Type[];
+
+const data: OneOrMany<number[]> = [5];
+
+const depositMoney = <T extends number | string>(amount: T): T => {
+	console.log(`req to server with amount: ${amount}`);
+	return amount;
+}
+
+depositMoney(500);
+depositMoney("500");
