@@ -885,30 +885,52 @@
 //   state.data.name = "abc";
 // }
 
-
 interface ICompany {
-	name: string;
-	debts: number
+  name: string;
+  debts: number;
+  departments: Department;
+  management: {
+    owner: string;
+  };
 }
 
+interface Department {
+  [key: string]: string;
+}
+const some = "debts"
+type CompanyDebtsType = ICompany[typeof some];
+
+// type CompanyDebtsType = ICompany["debts"];
+type CompanyOwnerType = ICompany["management"]["owner"];
+type CompanyDepartmentsTypes = ICompany["departments"];
+type SomeType = ICompany[keyof ICompany];
 type CompanyKeys = keyof ICompany;
 const keys: CompanyKeys = "name";
 
-function printDebts<T, K extends keyof T, S extends keyof T>(company: T, name: K, debts: S){
-	console.log(`Company ${company[name]}, debts:${company[debts]}`);
+function printDebts<T, K extends keyof T, S extends keyof T>(
+  company: T,
+  name: K,
+  debts: S
+) {
+  console.log(`Company ${company[name]}, debts:${company[debts]}`);
 }
 
-const hh: ICompany = {
-	name: "HH",
-	debts: 1000
-}
 
 
-printDebts(hh, "name", "debts")
+const google: ICompany = {
+  name: "Google",
+  debts: 500000,
+  departments: {
+    sales: "sales",
+    marketing: "marketing",
+    developers: "developers",
+  },
+  management: {
+    owner: "John",
+  },
+};
 
-const google ={
-	name: "Google",
-	open: "true"
-}
+printDebts(google, "name", "debts");
 
-printDebts(google, "name", "open")
+type googleKeys = keyof typeof google;
+const keys1: googleKeys = "name";
