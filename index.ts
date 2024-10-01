@@ -782,47 +782,77 @@
 //   processing: processing,
 // };
 
-interface ProcessingFn {
-  <T>(data: T): T;
+// interface ProcessingFn {
+//   <T>(data: T): T;
+// }
+
+// function processing<T>(data: T): T {
+//   return data;
+// }
+
+// let newFunc: ProcessingFn = processing;
+
+// type Smth<T> = T;
+
+// const num: Smth<number> = 5;
+
+// interface ParentsOfUser {
+// 	mother: string,
+// 	father: string
+// }
+
+// interface User<ParentsData extends ParentsOfUser>{
+//   login: string;
+//   age: number;
+//   parents: ParentsData;
+// }
+
+// const user: User<{mother: string, father: string, married: boolean, smth: number}> = {
+//   login: "str",
+//   age: 25,
+//   parents: { mother: "Anna", father: "No data", married: true, smth: 16 }
+// };
+
+
+// type OrNull<Type> = Type | null;
+// type OneOrMany<Type> = Type | Type[];
+
+
+
+// const depositMoney = <T extends number | string>(amount: T): T => {
+// 	console.log(`req to server with amount: ${amount}`);
+// 	return amount;
+// }
+
+// depositMoney(500);
+// depositMoney("500");
+
+class User<T, S> {
+	name: T;
+	age: S;
+
+	constructor(name: T, age: S){
+		this.name = name;
+		this.age = age;
+	}
+
+	sayMyFullName<T>(surname: T): string{
+		if (typeof surname !== "string") {
+			return `I have only name ${this.name}`
+		} else {
+			return `${this.name} ${surname}`
+		}
+	}
 }
 
-function processing<T>(data: T): T {
-  return data;
+class AdminUser<T> extends User<string, number>{
+	rutes: T;
 }
 
-let newFunc: ProcessingFn = processing;
+const ivan = new User("Ivan", 30);
+console.log(ivan.sayMyFullName("Smith"));
 
-type Smth<T> = T;
+const nameData = "Alex";
+const ageData = 24;
 
-const num: Smth<number> = 5;
-
-interface ParentsOfUser {
-	mother: string,
-	father: string
-}
-
-interface User<ParentsData extends ParentsOfUser>{
-  login: string;
-  age: number;
-  parents: ParentsData;
-}
-
-const user: User<{mother: string, father: string, married: boolean, smth: number}> = {
-  login: "str",
-  age: 25,
-  parents: { mother: "Anna", father: "No data", married: true, smth: 16 }
-};
-
-
-type OrNull<Type> = Type | null;
-type OneOrMany<Type> = Type | Type[];
-
-
-
-const depositMoney = <T extends number | string>(amount: T): T => {
-	console.log(`req to server with amount: ${amount}`);
-	return amount;
-}
-
-depositMoney(500);
-depositMoney("500");
+const alex = new User<string, number>(nameData, ageData)
