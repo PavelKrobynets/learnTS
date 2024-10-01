@@ -813,11 +813,8 @@
 //   parents: { mother: "Anna", father: "No data", married: true, smth: 16 }
 // };
 
-
 // type OrNull<Type> = Type | null;
 // type OneOrMany<Type> = Type | Type[];
-
-
 
 // const depositMoney = <T extends number | string>(amount: T): T => {
 // 	console.log(`req to server with amount: ${amount}`);
@@ -827,32 +824,91 @@
 // depositMoney(500);
 // depositMoney("500");
 
-class User<T, S> {
-	name: T;
-	age: S;
+// class User<T, S> {
+// 	name: T;
+// 	age: S;
 
-	constructor(name: T, age: S){
-		this.name = name;
-		this.age = age;
-	}
+// 	constructor(name: T, age: S){
+// 		this.name = name;
+// 		this.age = age;
+// 	}
 
-	sayMyFullName<T>(surname: T): string{
-		if (typeof surname !== "string") {
-			return `I have only name ${this.name}`
-		} else {
-			return `${this.name} ${surname}`
-		}
-	}
+// 	sayMyFullName<T>(surname: T): string{
+// 		if (typeof surname !== "string") {
+// 			return `I have only name ${this.name}`
+// 		} else {
+// 			return `${this.name} ${surname}`
+// 		}
+// 	}
+// }
+
+// class AdminUser<T> extends User<string, number>{
+// 	ruts: T;
+// }
+
+// const ivan = new User("Ivan", 30);
+// console.log(ivan.sayMyFullName("Smith"));
+
+// const nameData = "Alex";
+// const ageData = 24;
+
+// const alex = new User<string, number>(nameData, ageData)
+
+// const arr: Array<number> = [1, 2, 3];
+// const arr2: number[] = [1, 2, 3];
+
+// const roarr: ReadonlyArray<string> = ["some", "string"];
+
+// interface IState {
+//   data: {
+//     name: string;
+//   };
+//   tag?: string;
+// }
+
+// const state: Partial<IState> = {
+//   data: {
+//     name: "John",
+//   },
+// };
+
+// const strictState: Required<IState> = {
+//   data: {
+//     name: "John",
+//   },
+//   tag: "some tag",
+// };
+
+// strictState.data.name = "adasd";
+
+// function action(state: Readonly<IState>) {
+//   state.data.name = "abc";
+// }
+
+
+interface ICompany {
+	name: string;
+	debts: number
 }
 
-class AdminUser<T> extends User<string, number>{
-	rutes: T;
+type CompanyKeys = keyof ICompany;
+const keys: CompanyKeys = "name";
+
+function printDebts<T, K extends keyof T, S extends keyof T>(company: T, name: K, debts: S){
+	console.log(`Company ${company[name]}, debts:${company[debts]}`);
 }
 
-const ivan = new User("Ivan", 30);
-console.log(ivan.sayMyFullName("Smith"));
+const hh: ICompany = {
+	name: "HH",
+	debts: 1000
+}
 
-const nameData = "Alex";
-const ageData = 24;
 
-const alex = new User<string, number>(nameData, ageData)
+printDebts(hh, "name", "debts")
+
+const google ={
+	name: "Google",
+	open: "true"
+}
+
+printDebts(google, "name", "open")
