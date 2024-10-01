@@ -899,7 +899,6 @@ interface Department {
 }
 const some = "debts"
 type CompanyDebtsType = ICompany[typeof some];
-
 // type CompanyDebtsType = ICompany["debts"];
 type CompanyOwnerType = ICompany["management"]["owner"];
 type CompanyDepartmentsTypes = ICompany["departments"];
