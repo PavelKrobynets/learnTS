@@ -885,51 +885,101 @@
 //   state.data.name = "abc";
 // }
 
-interface ICompany {
-  name: string;
-  debts: number;
-  departments: Department;
-  management: {
-    owner: string;
-  };
-}
+// interface ICompany {
+//   name: string;
+//   debts: number;
+//   departments: Department;
+//   management: {
+//     owner: string;
+//   };
+// }
 
-interface Department {
-  [key: string]: string;
-}
-const some = "debts"
-type CompanyDebtsType = ICompany[typeof some];
-// type CompanyDebtsType = ICompany["debts"];
-type CompanyOwnerType = ICompany["management"]["owner"];
-type CompanyDepartmentsTypes = ICompany["departments"];
-type SomeType = ICompany[keyof ICompany];
-type CompanyKeys = keyof ICompany;
-const keys: CompanyKeys = "name";
+// interface Department {
+//   [key: string]: string;
+// }
+// const some = "debts"
+// type CompanyDebtsType = ICompany[typeof some];
+// // type CompanyDebtsType = ICompany["debts"];
+// type CompanyOwnerType = ICompany["management"]["owner"];
+// type CompanyDepartmentsTypes = ICompany["departments"];
+// type SomeType = ICompany[keyof ICompany];
+// type CompanyKeys = keyof ICompany;
+// const keys: CompanyKeys = "name";
 
-function printDebts<T, K extends keyof T, S extends keyof T>(
-  company: T,
-  name: K,
-  debts: S
-) {
-  console.log(`Company ${company[name]}, debts:${company[debts]}`);
-}
+// function printDebts<T, K extends keyof T, S extends keyof T>(
+//   company: T,
+//   name: K,
+//   debts: S
+// ) {
+//   console.log(`Company ${company[name]}, debts:${company[debts]}`);
+// }
 
+// const google: ICompany = {
+//   name: "Google",
+//   debts: 500000,
+//   departments: {
+//     sales: "sales",
+//     marketing: "marketing",
+//     developers: "developers",
+//   },
+//   management: {
+//     owner: "John",
+//   },
+// };
 
+// printDebts(google, "name", "debts");
 
-const google: ICompany = {
-  name: "Google",
-  debts: 500000,
-  departments: {
-    sales: "sales",
-    marketing: "marketing",
-    developers: "developers",
-  },
-  management: {
-    owner: "John",
-  },
+// type googleKeys = keyof typeof google;
+// const keys1: googleKeys = "name";
+const str: string = "Hello";
+type Example = "string" extends typeof str ? string : number;
+
+type FromUserOrFromBase<T extends typeof str | number> = T extends typeof str
+  ? IDataFromUser
+  : IDataFromBase;
+
+const test: FromUserOrFromBase<number> = {
+  calories: 535,
 };
 
-printDebts(google, "name", "debts");
+interface IDataFromUser {
+  weight: string;
+}
 
-type googleKeys = keyof typeof google;
-const keys1: googleKeys = "name";
+interface IDataFromBase {
+  calories: number;
+}
+
+// interface User<T extends "created" | Date>{
+// 	created: T extends "created" ? "created" : Date;
+// }
+
+// const User: User<"created"> = {
+// 	created: "created"
+// }
+
+// function calculateDailyCalories(str: string): IDataFromUser;
+// function calculateDailyCalories(num: number): IDataFromBase;
+function calculateDailyCalories<T extends string | number>(
+  numOrStr: T
+): T extends string ? IDataFromUser : IDataFromBase {
+  if (typeof numOrStr === "string") {
+    const obj: IDataFromUser = {
+      weight: numOrStr,
+    };
+    return obj as FromUserOrFromBase<T>;
+  } else {
+    const obj: IDataFromBase = {
+      calories: numOrStr,
+    };
+    return obj as FromUserOrFromBase<T>;
+  }
+}
+
+type GetStringType<T extends "hello" | "world" | string> = T extends "hello"
+  ? "hello"
+  : T extends "world"
+  ? "world"
+  : string;
+
+	type GetFirstType<T> = T extends Array<infer first> ? first : T;
