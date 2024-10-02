@@ -931,55 +931,91 @@
 
 // type googleKeys = keyof typeof google;
 // const keys1: googleKeys = "name";
-const str: string = "Hello";
-type Example = "string" extends typeof str ? string : number;
+// const str: string = "Hello";
+// type Example = "string" extends typeof str ? string : number;
 
-type FromUserOrFromBase<T extends typeof str | number> = T extends typeof str
-  ? IDataFromUser
-  : IDataFromBase;
+// type FromUserOrFromBase<T extends typeof str | number> = T extends typeof str
+//   ? IDataFromUser
+//   : IDataFromBase;
 
-const test: FromUserOrFromBase<number> = {
-  calories: 535,
+// const test: FromUserOrFromBase<number> = {
+//   calories: 535,
+// };
+
+// interface IDataFromUser {
+//   weight: string;
+// }
+
+// interface IDataFromBase {
+//   calories: number;
+// }
+
+// // interface User<T extends "created" | Date>{
+// // 	created: T extends "created" ? "created" : Date;
+// // }
+
+// // const User: User<"created"> = {
+// // 	created: "created"
+// // }
+
+// // function calculateDailyCalories(str: string): IDataFromUser;
+// // function calculateDailyCalories(num: number): IDataFromBase;
+// function calculateDailyCalories<T extends string | number>(
+//   numOrStr: T
+// ): T extends string ? IDataFromUser : IDataFromBase {
+//   if (typeof numOrStr === "string") {
+//     const obj: IDataFromUser = {
+//       weight: numOrStr,
+//     };
+//     return obj as FromUserOrFromBase<T>;
+//   } else {
+//     const obj: IDataFromBase = {
+//       calories: numOrStr,
+//     };
+//     return obj as FromUserOrFromBase<T>;
+//   }
+// }
+
+// type GetStringType<T extends "hello" | "world" | string> = T extends "hello"
+//   ? "hello"
+//   : T extends "world"
+//   ? "world"
+//   : string;
+
+// 	type GetFirstType<T> = T extends Array<infer first> ? first : T;
+
+type Currencies = {
+  usa: "usd";
+  china: "cny";
+  ukraine: "uah";
+  kz: "tng";
 };
 
-interface IDataFromUser {
-  weight: string;
+type CreateCustomCurr<T> = {
+	[K in keyof T]: T[K] extends string ? string : never;
 }
 
-interface IDataFromBase {
-  calories: number;
+const test: CreateCustomCurr<Currencies> = {
+	usa: "a",
+	china: "b",
+	ukraine: "c",
+	kz: "d",
 }
 
-// interface User<T extends "created" | Date>{
-// 	created: T extends "created" ? "created" : Date;
+type CustomCurrencies = {
+  [key in keyof Currencies]: string;
+};
+type ROCurrencies = Readonly<Currencies>;
+
+// const test: CustomCurrencies = {
+// 	usa: "a",
+// 	china: "b",
+// 	ukraine: 'c',
+// 	kz: 'd'
 // }
 
-// const User: User<"created"> = {
-// 	created: "created"
-// }
-
-// function calculateDailyCalories(str: string): IDataFromUser;
-// function calculateDailyCalories(num: number): IDataFromBase;
-function calculateDailyCalories<T extends string | number>(
-  numOrStr: T
-): T extends string ? IDataFromUser : IDataFromBase {
-  if (typeof numOrStr === "string") {
-    const obj: IDataFromUser = {
-      weight: numOrStr,
-    };
-    return obj as FromUserOrFromBase<T>;
-  } else {
-    const obj: IDataFromBase = {
-      calories: numOrStr,
-    };
-    return obj as FromUserOrFromBase<T>;
-  }
+function someFunc(a: number) {
+  console.log(a);
+  return a;
 }
 
-type GetStringType<T extends "hello" | "world" | string> = T extends "hello"
-  ? "hello"
-  : T extends "world"
-  ? "world"
-  : string;
-
-	type GetFirstType<T> = T extends Array<infer first> ? first : T;
