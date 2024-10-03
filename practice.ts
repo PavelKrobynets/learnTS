@@ -491,49 +491,49 @@
 
 // console.log(calculateAmountOfFigures(data));
 
-interface IPhone {
-  company: string;
-  number: number;
-}
+// interface IPhone {
+//   company: string;
+//   number: number;
+// }
 
-// IMobilePhone должен наследоваться от IPhone,
-// тип свойства companyPartner зависит от свойства company
+// // IMobilePhone должен наследоваться от IPhone,
+// // тип свойства companyPartner зависит от свойства company
 
-interface IMobilePhone extends IPhone {
-  size: string;
-  companyPartner: IPhone["company"];
-  manufactured: Date;
-}
+// interface IMobilePhone extends IPhone {
+//   size: string;
+//   companyPartner: IPhone["company"];
+//   manufactured: Date;
+// }
 
-// Типизировать объект phones
+// // Типизировать объект phones
 
-const phones: IMobilePhone[] = [
-  {
-    company: "Nokia",
-    number: 1285637,
-    size: "5.5",
-    companyPartner: "MobileNokia",
-    manufactured: new Date("2022-09-01"),
-  },
-  {
-    company: "Samsung",
-    number: 4356637,
-    size: "5.0",
-    companyPartner: "SamMobile",
-    manufactured: new Date("2021-11-05"),
-  },
-  {
-    company: "Apple",
-    number: 4552833,
-    size: "5.7",
-    companyPartner: "no data",
-    manufactured: new Date("2022-05-24T12:00:00"),
-  },
-];
+// const phones: IMobilePhone[] = [
+//   {
+//     company: "Nokia",
+//     number: 1285637,
+//     size: "5.5",
+//     companyPartner: "MobileNokia",
+//     manufactured: new Date("2022-09-01"),
+//   },
+//   {
+//     company: "Samsung",
+//     number: 4356637,
+//     size: "5.0",
+//     companyPartner: "SamMobile",
+//     manufactured: new Date("2021-11-05"),
+//   },
+//   {
+//     company: "Apple",
+//     number: 4552833,
+//     size: "5.7",
+//     companyPartner: "no data",
+//     manufactured: new Date("2022-05-24T12:00:00"),
+//   },
+// ];
 
-interface IPhonesManufacturedAfterDate extends IMobilePhone {
-  initialDate: string;
-}
+// interface IPhonesManufacturedAfterDate extends IMobilePhone {
+//   initialDate: string;
+// }
 
 // Функция должна отфильтровать массив данных и вернуть новый массив
 // с телефонами, выпущенными после даты в третьем аргументе
@@ -559,24 +559,204 @@ interface IPhonesManufacturedAfterDate extends IMobilePhone {
 // 	})
 // }
 
-function filterPhonesByDate<T extends IMobilePhone, K extends keyof T>(
-  phones: T[],
-  key: K,
-  initial: string
-): IPhonesManufacturedAfterDate[] {
-  const date: Date = new Date(initial);
-  return phones
-    .filter((phone) => phone[key] > date)
-    .map((phone) => {
-      const newObj = {
-        ...phone,
-        initialDate: initial,
-      };
-      return newObj as IPhonesManufacturedAfterDate;
-    });
+// function filterPhonesByDate<T extends IMobilePhone, K extends keyof T>(
+//   phones: T[],
+//   key: K,
+//   initial: string
+// ): IPhonesManufacturedAfterDate[] {
+//   const date: Date = new Date(initial);
+//   return phones
+//     .filter((phone) => phone[key] > date)
+//     .map((phone) => {
+//       const newObj = {
+//         ...phone,
+//         initialDate: initial,
+//       };
+//       return newObj as IPhonesManufacturedAfterDate;
+//     });
+// }
+
+// // Второй аргумент при вызове функции должен быть связан с первым,
+// // а значит мы получим подсказки - свойства этого объекта
+
+// console.log(filterPhonesByDate(phones, "manufactured", "2022-01-01"));
+
+// Необходимо типизировать этот большой объект
+// Свойство futureClasses должно быть в зависимости от classes по типу
+// Свойства exClients и futureClients тоже должны быть в зависимости от currClients
+// ИЛИ все три зависят от общего родителя
+
+// Простыми словами: при добавлении свойства в целевой объект они должны быть
+// автоматически добавлены в зависимые (сразу подсказка от TS)
+
+interface IFitnessCenter {
+  clubName: string;
+  location: string;
+  classes: IClasses[];
+  futureClasses: IFutureClasses[];
+  currClients: IClients[];
+  exClients: IExClients[];
+  futureClients: IFutureClients[];
 }
 
-// Второй аргумент при вызове функции должен быть связан с первым,
-// а значит мы получим подсказки - свойства этого объекта
+interface IClasses {
+  name: string;
+  startsAt: string;
+  duration: number;
+}
 
-console.log(filterPhonesByDate(phones, "manufactured", "2022-01-01"));
+interface IFutureClasses extends Omit<IClasses, "startsAt"> {
+  willStartsAt: string;
+}
+
+interface IClients {
+  name: string;
+  age: number | string;
+  gender: "male" | "female";
+  timeLeft: string;
+}
+
+interface IExClients extends Omit<IClients, "timeLeft"> {
+  makeCallFor: Date;
+}
+
+interface IFutureClients extends Pick<IExClients, "name" | "makeCallFor"> {}
+
+const fitnessClubCenter: IFitnessCenter = {
+  clubName: "Fitness club Center",
+  location: "central ave. 45, 5th floor",
+  classes: [
+    {
+      name: "yoga",
+      startsAt: "8:00 AM",
+      duration: 60,
+    },
+    {
+      name: "trx",
+      startsAt: "11:00 AM",
+      duration: 45,
+    },
+    {
+      name: "swimming",
+      startsAt: "3:00 PM",
+      duration: 70,
+    },
+  ],
+  futureClasses: [
+    {
+      name: "boxing",
+      willStartsAt: "6:00 PM",
+      duration: 40,
+    },
+    {
+      name: "breath training",
+      willStartsAt: "8:00 PM",
+      duration: 30,
+    },
+  ],
+  currClients: [
+    {
+      name: "John Smith",
+      age: "-",
+      gender: "male",
+      timeLeft: "1 month",
+    },
+    {
+      name: "Alise Smith",
+      age: 35,
+      gender: "female",
+      timeLeft: "3 month",
+    },
+    {
+      name: "Ann Sonne",
+      age: 24,
+      gender: "female",
+      timeLeft: "5 month",
+    },
+  ],
+  exClients: [
+    {
+      name: "Tom Smooth",
+      age: 50,
+      gender: "male",
+      makeCallFor: new Date("2023-08-12"),
+    },
+  ],
+  futureClients: [
+    {
+      name: "Maria",
+      makeCallFor: new Date("2023-07-10"),
+    },
+  ],
+};
+
+//---------------------------------------------------------
+
+interface ISlider {
+  container?: string;
+  numberOfSlides?: number;
+  speed?: 300 | 500 | 700;
+  direction?: "horizontal" | "vertical";
+  dots?: boolean;
+  arrows?: boolean;
+  animationName?: string;
+}
+
+function createSlider({
+  container = "",
+  numberOfSlides = 1,
+  speed = 300,
+  direction = "horizontal",
+  dots = true,
+  arrows = true,
+}: ISlider = {}): void {
+  console.log(container, numberOfSlides, speed, direction, dots, arrows);
+}
+
+createSlider();
+
+// Необходимо типизировать объект настроек, который будет зависим
+// от интерфейса ISlider
+// Все поля в нем обязательны для заполнения
+
+interface ICustomSliderOptions extends Required<ISlider> {}
+
+const customSliderOptions: ICustomSliderOptions = {
+  container: "id",
+  numberOfSlides: 4,
+  speed: 500,
+  direction: "horizontal",
+  dots: true,
+  arrows: true,
+  animationName: "fade",
+};
+
+function createCustomSlider(options: any): void {
+  if ("container" in options) {
+    console.log(options);
+  }
+}
+
+//------------------------------------------------------------------------
+
+interface IForm {
+  login: ILogin;
+  password: IPassword;
+}
+
+interface ILogin {
+  isValid: boolean;
+  errorMsg: string;
+}
+
+interface IPassword {
+  isValid: boolean;
+}
+// Необходимо типизировать объект валидации
+// Учтите, что данные в форме могут расширяться и эти поля
+// должны появиться и в объекте валидации
+
+const validationData: IForm = {
+  login: { isValid: false, errorMsg: "At least 3 characters" },
+  password: { isValid: true },
+};
