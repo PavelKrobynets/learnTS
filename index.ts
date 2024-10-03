@@ -1019,18 +1019,44 @@
 //   return a;
 // }
 
-type Currencies = {
+interface Currencies {
   usa: "usd";
   china: "cny";
   ukraine: "uah";
   kz: "tng";
 };
 
+type CurrencyWithoutUSA = Omit<Currencies, "usa">;
+type CurrencyUSAAndUkraine = Pick<Currencies, "usa" | "ukraine">
+type CountriesWithoutChina = Exclude<keyof Currencies, "china" >
+type UkraineAndUSA = Extract<keyof Currencies, "usa" | "ukraine">
+
+
+type FadeType = Exclude<MyAnimation, "fade">
+type SwipeType = Extract<MyAnimation, "swipe">
 // type CreateCustomCurr<T> = {
 // 	[K in keyof T]: T[K] extends string ? string : never;
 // }
 type CreateCustomCurr<T> = {
 	[K in keyof T as `custom${Capitalize<string & K>}`]: T[K] extends string ? string : never;
+}
+
+type PlayersNames = "Alex" | "John";
+type DataCurrency = Record<PlayersNames, Currencies>
+
+const gameData: DataCurrency = {
+	"Alex": {
+		usa: "usd",
+		china: "cny",
+		ukraine: "uah",
+		kz: "tng"
+	},
+	"John": {
+		usa: "usd",
+		china: "cny",
+		ukraine: "uah",
+		kz: "tng"
+	}
 }
 
 type CustomCurrencies = CreateCustomCurr<Currencies>
@@ -1039,3 +1065,4 @@ type MyAnimation = "fade" | "swipe";
 type Direction = "in" | "out";
 
 type MyNewAnimation = `${MyAnimation}${Capitalize<Direction>}`;
+
