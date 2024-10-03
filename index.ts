@@ -984,6 +984,41 @@
 
 // 	type GetFirstType<T> = T extends Array<infer first> ? first : T;
 
+// type Currencies = {
+//   usa: "usd";
+//   china: "cny";
+//   ukraine: "uah";
+//   kz: "tng";
+// };
+
+// type CreateCustomCurr<T> = {
+// 	[K in keyof T]: T[K] extends string ? string : never;
+// }
+
+// const test: CreateCustomCurr<Currencies> = {
+// 	usa: "a",
+// 	china: "b",
+// 	ukraine: "c",
+// 	kz: "d",
+// }
+
+// type CustomCurrencies = {
+//   [key in keyof Currencies]: string;
+// };
+// type ROCurrencies = Readonly<Currencies>;
+
+// // const test: CustomCurrencies = {
+// // 	usa: "a",
+// // 	china: "b",
+// // 	ukraine: 'c',
+// // 	kz: 'd'
+// // }
+
+// function someFunc(a: number) {
+//   console.log(a);
+//   return a;
+// }
+
 type Currencies = {
   usa: "usd";
   china: "cny";
@@ -991,31 +1026,16 @@ type Currencies = {
   kz: "tng";
 };
 
-type CreateCustomCurr<T> = {
-	[K in keyof T]: T[K] extends string ? string : never;
-}
-
-const test: CreateCustomCurr<Currencies> = {
-	usa: "a",
-	china: "b",
-	ukraine: "c",
-	kz: "d",
-}
-
-type CustomCurrencies = {
-  [key in keyof Currencies]: string;
-};
-type ROCurrencies = Readonly<Currencies>;
-
-// const test: CustomCurrencies = {
-// 	usa: "a",
-// 	china: "b",
-// 	ukraine: 'c',
-// 	kz: 'd'
+// type CreateCustomCurr<T> = {
+// 	[K in keyof T]: T[K] extends string ? string : never;
 // }
-
-function someFunc(a: number) {
-  console.log(a);
-  return a;
+type CreateCustomCurr<T> = {
+	[K in keyof T as `custom${Capitalize<string & K>}`]: T[K] extends string ? string : never;
 }
 
+type CustomCurrencies = CreateCustomCurr<Currencies>
+
+type MyAnimation = "fade" | "swipe";
+type Direction = "in" | "out";
+
+type MyNewAnimation = `${MyAnimation}${Capitalize<Direction>}`;
