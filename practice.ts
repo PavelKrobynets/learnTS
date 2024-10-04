@@ -589,174 +589,175 @@
 // Простыми словами: при добавлении свойства в целевой объект они должны быть
 // автоматически добавлены в зависимые (сразу подсказка от TS)
 
-interface IFitnessCenter {
-  clubName: string;
-  location: string;
-  classes: IClasses[];
-  futureClasses: IFutureClasses[];
-  currClients: IClients[];
-  exClients: IExClients[];
-  futureClients: IFutureClients[];
-}
+// interface IFitnessCenter {
+//   clubName: string;
+//   location: string;
+//   classes: IClasses[];
+//   futureClasses: IFutureClasses[];
+//   currClients: IClients[];
+//   exClients: IExClients[];
+//   futureClients: IFutureClients[];
+// }
 
-interface IClasses {
-  name: string;
-  startsAt: string;
-  duration: number;
-}
+// interface IClasses {
+//   name: string;
+//   startsAt: string;
+//   duration: number;
+// }
 
-interface IFutureClasses extends Omit<IClasses, "startsAt"> {
-  willStartsAt: string;
-}
+// interface IFutureClasses extends Omit<IClasses, "startsAt"> {
+//   willStartsAt: string;
+// }
 
-interface IClients {
-  name: string;
-  age: number | string;
-  gender: "male" | "female";
-  timeLeft: string;
-}
+// interface IClients {
+//   name: string;
+//   age: number | string;
+//   gender: "male" | "female";
+//   timeLeft: string;
+// }
 
-interface IExClients extends Omit<IClients, "timeLeft"> {
-  makeCallFor: Date;
-}
+// interface IExClients extends Omit<IClients, "timeLeft"> {
+//   makeCallFor: Date;
+// }
 
-interface IFutureClients extends Pick<IExClients, "name" | "makeCallFor"> {}
+// interface IFutureClients extends Pick<IExClients, "name" | "makeCallFor"> {}
 
-const fitnessClubCenter: IFitnessCenter = {
-  clubName: "Fitness club Center",
-  location: "central ave. 45, 5th floor",
-  classes: [
-    {
-      name: "yoga",
-      startsAt: "8:00 AM",
-      duration: 60,
-    },
-    {
-      name: "trx",
-      startsAt: "11:00 AM",
-      duration: 45,
-    },
-    {
-      name: "swimming",
-      startsAt: "3:00 PM",
-      duration: 70,
-    },
-  ],
-  futureClasses: [
-    {
-      name: "boxing",
-      willStartsAt: "6:00 PM",
-      duration: 40,
-    },
-    {
-      name: "breath training",
-      willStartsAt: "8:00 PM",
-      duration: 30,
-    },
-  ],
-  currClients: [
-    {
-      name: "John Smith",
-      age: "-",
-      gender: "male",
-      timeLeft: "1 month",
-    },
-    {
-      name: "Alise Smith",
-      age: 35,
-      gender: "female",
-      timeLeft: "3 month",
-    },
-    {
-      name: "Ann Sonne",
-      age: 24,
-      gender: "female",
-      timeLeft: "5 month",
-    },
-  ],
-  exClients: [
-    {
-      name: "Tom Smooth",
-      age: 50,
-      gender: "male",
-      makeCallFor: new Date("2023-08-12"),
-    },
-  ],
-  futureClients: [
-    {
-      name: "Maria",
-      makeCallFor: new Date("2023-07-10"),
-    },
-  ],
-};
+// const fitnessClubCenter: IFitnessCenter = {
+//   clubName: "Fitness club Center",
+//   location: "central ave. 45, 5th floor",
+//   classes: [
+//     {
+//       name: "yoga",
+//       startsAt: "8:00 AM",
+//       duration: 60,
+//     },
+//     {
+//       name: "trx",
+//       startsAt: "11:00 AM",
+//       duration: 45,
+//     },
+//     {
+//       name: "swimming",
+//       startsAt: "3:00 PM",
+//       duration: 70,
+//     },
+//   ],
+//   futureClasses: [
+//     {
+//       name: "boxing",
+//       willStartsAt: "6:00 PM",
+//       duration: 40,
+//     },
+//     {
+//       name: "breath training",
+//       willStartsAt: "8:00 PM",
+//       duration: 30,
+//     },
+//   ],
+//   currClients: [
+//     {
+//       name: "John Smith",
+//       age: "-",
+//       gender: "male",
+//       timeLeft: "1 month",
+//     },
+//     {
+//       name: "Alise Smith",
+//       age: 35,
+//       gender: "female",
+//       timeLeft: "3 month",
+//     },
+//     {
+//       name: "Ann Sonne",
+//       age: 24,
+//       gender: "female",
+//       timeLeft: "5 month",
+//     },
+//   ],
+//   exClients: [
+//     {
+//       name: "Tom Smooth",
+//       age: 50,
+//       gender: "male",
+//       makeCallFor: new Date("2023-08-12"),
+//     },
+//   ],
+//   futureClients: [
+//     {
+//       name: "Maria",
+//       makeCallFor: new Date("2023-07-10"),
+//     },
+//   ],
+// };
 
-//---------------------------------------------------------
+// //---------------------------------------------------------
 
-interface ISlider {
-  container?: string;
-  numberOfSlides?: number;
-  speed?: 300 | 500 | 700;
-  direction?: "horizontal" | "vertical";
-  dots?: boolean;
-  arrows?: boolean;
-  animationName?: string;
-}
+// interface ISlider {
+//   container?: string;
+//   numberOfSlides?: number;
+//   speed?: 300 | 500 | 700;
+//   direction?: "horizontal" | "vertical";
+//   dots?: boolean;
+//   arrows?: boolean;
+//   animationName?: string;
+// }
 
-function createSlider({
-  container = "",
-  numberOfSlides = 1,
-  speed = 300,
-  direction = "horizontal",
-  dots = true,
-  arrows = true,
-}: ISlider = {}): void {
-  console.log(container, numberOfSlides, speed, direction, dots, arrows);
-}
+// function createSlider({
+//   container = "",
+//   numberOfSlides = 1,
+//   speed = 300,
+//   direction = "horizontal",
+//   dots = true,
+//   arrows = true,
+// }: ISlider = {}): void {
+//   console.log(container, numberOfSlides, speed, direction, dots, arrows);
+// }
 
-createSlider();
+// createSlider();
 
-// Необходимо типизировать объект настроек, который будет зависим
-// от интерфейса ISlider
-// Все поля в нем обязательны для заполнения
+// // Необходимо типизировать объект настроек, который будет зависим
+// // от интерфейса ISlider
+// // Все поля в нем обязательны для заполнения
 
-interface ICustomSliderOptions extends Required<ISlider> {}
+// interface ICustomSliderOptions extends Required<ISlider> {}
 
-const customSliderOptions: ICustomSliderOptions = {
-  container: "id",
-  numberOfSlides: 4,
-  speed: 500,
-  direction: "horizontal",
-  dots: true,
-  arrows: true,
-  animationName: "fade",
-};
+// const customSliderOptions: ICustomSliderOptions = {
+//   container: "id",
+//   numberOfSlides: 4,
+//   speed: 500,
+//   direction: "horizontal",
+//   dots: true,
+//   arrows: true,
+//   animationName: "fade",
+// };
 
-function createCustomSlider(options: any): void {
-  if ("container" in options) {
-    console.log(options);
-  }
-}
+// function createCustomSlider(options: any): void {
+//   if ("container" in options) {
+//     console.log(options);
+//   }
+// }
 
-//------------------------------------------------------------------------
+// //------------------------------------------------------------------------
 
-interface IForm {
-  login: ILogin;
-  password: IPassword;
-}
+// interface IForm {
+//   login: ILogin;
+//   password: IPassword;
+// }
 
-interface ILogin {
-  isValid: boolean;
-  errorMsg: string;
-}
+// interface ILogin {
+//   isValid: boolean;
+//   errorMsg: string;
+// }
 
-interface IPassword {
-  isValid: boolean;
-}
-// Необходимо типизировать объект валидации
-// Учтите, что данные в форме могут расширяться и эти поля
-// должны появиться и в объекте валидации
+// interface IPassword {
+//   isValid: boolean;
+// }
+// // Необходимо типизировать объект валидации
+// // Учтите, что данные в форме могут расширяться и эти поля
+// // должны появиться и в объекте валидации
 
-const validationData: IForm = {
-  login: { isValid: false, errorMsg: "At least 3 characters" },
-  password: { isValid: true },
-};
+// const validationData: IForm = {
+//   login: { isValid: false, errorMsg: "At least 3 characters" },
+//   password: { isValid: true },
+// };
+
