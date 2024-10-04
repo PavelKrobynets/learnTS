@@ -1019,63 +1019,97 @@
 //   return a;
 // }
 
-interface Currencies {
-  usa: "usd";
-  china: "cny";
-  ukraine: "uah";
-  kz: "tng";
-}
-
-type CurrencyWithoutUSA = Omit<Currencies, "usa">;
-type CurrencyUSAAndUkraine = Pick<Currencies, "usa" | "ukraine">;
-type CountriesWithoutChina = Exclude<keyof Currencies, "china">;
-type UkraineAndUSA = Extract<keyof Currencies, "usa" | "ukraine">;
-
-type FadeType = Exclude<MyAnimation, "fade">;
-type SwipeType = Extract<MyAnimation, "swipe">;
-// type CreateCustomCurr<T> = {
-// 	[K in keyof T]: T[K] extends string ? string : never;
+// interface Currencies {
+//   usa: "usd";
+//   china: "cny";
+//   ukraine: "uah";
+//   kz: "tng";
 // }
-type CreateCustomCurr<T> = {
-  [K in keyof T as `custom${Capitalize<string & K>}`]: T[K] extends string
-    ? string
-    : never;
-};
 
-type PlayersNames = "Alex" | "John";
-type DataCurrency = Record<PlayersNames, Currencies>;
+// type CurrencyWithoutUSA = Omit<Currencies, "usa">;
+// type CurrencyUSAAndUkraine = Pick<Currencies, "usa" | "ukraine">;
+// type CountriesWithoutChina = Exclude<keyof Currencies, "china">;
+// type UkraineAndUSA = Extract<keyof Currencies, "usa" | "ukraine">;
 
-const gameData: DataCurrency = {
-  Alex: {
-    usa: "usd",
-    china: "cny",
-    ukraine: "uah",
-    kz: "tng",
-  },
-  John: {
-    usa: "usd",
-    china: "cny",
-    ukraine: "uah",
-    kz: "tng",
-  },
-};
+// type FadeType = Exclude<MyAnimation, "fade">;
+// type SwipeType = Extract<MyAnimation, "swipe">;
+// // type CreateCustomCurr<T> = {
+// // 	[K in keyof T]: T[K] extends string ? string : never;
+// // }
+// type CreateCustomCurr<T> = {
+//   [K in keyof T as `custom${Capitalize<string & K>}`]: T[K] extends string
+//     ? string
+//     : never;
+// };
 
-type CustomCurrencies = CreateCustomCurr<Currencies>;
+// type PlayersNames = "Alex" | "John";
+// type DataCurrency = Record<PlayersNames, Currencies>;
 
-type MyAnimation = "fade" | "swipe";
-type Direction = "in" | "out";
+// const gameData: DataCurrency = {
+//   Alex: {
+//     usa: "usd",
+//     china: "cny",
+//     ukraine: "uah",
+//     kz: "tng",
+//   },
+//   John: {
+//     usa: "usd",
+//     china: "cny",
+//     ukraine: "uah",
+//     kz: "tng",
+//   },
+// };
 
-type MyNewAnimation = `${MyAnimation}${Capitalize<Direction>}`;
+// type CustomCurrencies = CreateCustomCurr<Currencies>;
 
-function calculate(a: number, b: number): number {
-  return a * b;
+// type MyAnimation = "fade" | "swipe";
+// type Direction = "in" | "out";
+
+// type MyNewAnimation = `${MyAnimation}${Capitalize<Direction>}`;
+
+// function calculate(a: number, b: number): number {
+//   return a * b;
+// }
+
+// type CalculateRT = ReturnType<typeof calculate>;
+
+// type CalculatePT = Parameters<typeof calculate>[0];
+
+// class Example {
+// 	constructor(a: number){}
+// }
+// type T0 = ConstructorParameters<typeof Example>
+
+const jsonTest = '{"name": "Test", "data": "4"}';
+
+interface JSONTest {
+  name: string;
+  data: number;
 }
 
-type CalculateRT = ReturnType<typeof calculate>;
+const objFromJson = JSON.parse(jsonTest);
+console.log(objFromJson);
+console.log(JSON.stringify(objFromJson));
 
-type CalculatePT = Parameters<typeof calculate>[0];
 
-class Example {
-	constructor(a: number){}
+let toDoList: ToDo[] = [];
+
+interface ToDo {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
 }
-type T0 = ConstructorParameters<typeof Example>
+
+fetch("https://jsonplaceholder.typicode.com/todos")
+  .then((response) => response.json())
+  .then((json) => {
+    if ("id" in json) {
+      toDoList.push(json);
+    } else if (Array.isArray(json)){
+			toDoList = json;
+		} else {
+			console.log(`${json} is a string `);
+		}
+		console.log(toDoList);
+  });
