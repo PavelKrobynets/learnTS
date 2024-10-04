@@ -1080,36 +1080,60 @@
 // }
 // type T0 = ConstructorParameters<typeof Example>
 
-const jsonTest = '{"name": "Test", "data": "4"}';
+// const jsonTest = '{"name": "Test", "data": "4"}';
 
-interface JSONTest {
+// interface JSONTest {
+//   name: string;
+//   data: number;
+// }
+
+// const objFromJson = JSON.parse(jsonTest);
+// console.log(objFromJson);
+// console.log(JSON.stringify(objFromJson));
+
+// let toDoList: ToDo[] = [];
+
+// interface ToDo {
+//   userId: number;
+//   id: number;
+//   title: string;
+//   completed: boolean;
+// }
+
+// fetch("https://jsonplaceholder.typicode.com/todos")
+//   .then((response) => response.json())
+//   .then((json) => {
+//     if ("id" in json) {
+//       toDoList.push(json);
+//     } else if (Array.isArray(json)){
+// 			toDoList = json;
+// 		} else {
+// 			console.log(`${json} is a string `);
+// 		}
+// 		console.log(toDoList);
+//   });
+
+// const promise = new Promise<string>((resolve, reject) => {
+// 	resolve("test")
+// })
+// promise.then(value => console.log(value))
+
+type FromPromise = Awaited<Promise<number>>;
+
+interface User {
   name: string;
-  data: number;
 }
 
-const objFromJson = JSON.parse(jsonTest);
-console.log(objFromJson);
-console.log(JSON.stringify(objFromJson));
-
-
-let toDoList: ToDo[] = [];
-
-interface ToDo {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-}
-
-fetch("https://jsonplaceholder.typicode.com/todos")
-  .then((response) => response.json())
-  .then((json) => {
-    if ("id" in json) {
-      toDoList.push(json);
-    } else if (Array.isArray(json)){
-			toDoList = json;
-		} else {
-			console.log(`${json} is a string `);
+async function fetchUsers(): Promise<User[]> {
+	const users: User[] = [
+		{
+			name: "John",
 		}
-		console.log(toDoList);
-  });
+	]
+
+	return users;
+}
+
+const users  = fetchUsers();
+
+type FetchedDataUsers = Awaited<ReturnType<typeof fetchUsers>>
